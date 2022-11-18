@@ -7,5 +7,21 @@ class CellTest < Test::Unit::TestCase
     assert !cell.alive?
   end
 
+  def test_will_be_alive_1_neighbor
+    cell = Cell.new
+    cell.living_neighbors = 1
+    assert !cell.will_be_alive?
+  end
 
+  def test_will_be_alive_3_neighbor
+    cell = Cell.new
+    cell.living_neighbors = 3
+    assert cell.will_be_alive?
+  end
+
+  def test_will_be_alive_more_than_3_neighbor
+    cell = Cell.new
+    cell.living_neighbors = 4
+    assert !cell.will_be_alive?
+  end
 end
