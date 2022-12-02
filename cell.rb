@@ -1,8 +1,17 @@
 class Cell
-    attr_accessor :living_neighbors, :alive
+    attr_accessor :alive, :neighbors
+
+    def initialize(alive = false)
+      @alive = alive
+      @neighbors = []
+    end
 
     def alive?
       alive
+    end
+    
+    def living_neighbors
+      neighbors.count {|neighbor| neighbor.alive?}
     end
 
     def will_be_alive?  

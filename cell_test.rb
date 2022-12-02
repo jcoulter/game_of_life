@@ -13,29 +13,42 @@ class CellTest < Test::Unit::TestCase
   end
 
   def test_will_be_alive_1_neighbor
-    cell.living_neighbors = 1
+    cell.neighbors = [Cell.new(true)]
     assert !cell.will_be_alive?
   end
 
   def test_will_be_alive_2_neighbors_currently_alive
-    cell.living_neighbors = 2
+    cell.neighbors = [Cell.new(true), Cell.new(true)]
     cell.alive = true
     assert cell.will_be_alive?
   end
 
   def test_will_be_alive_2_neighbors_currently_dead
-    cell.living_neighbors = 2
+    cell.neighbors = [Cell.new(true), Cell.new(true)]
     cell.alive = false
     assert !cell.will_be_alive?
   end
 
   def test_will_be_alive_3_neighbor
-    cell.living_neighbors = 3
+    cell.neighbors = [Cell.new(true), Cell.new(true), Cell.new(true)]
     assert cell.will_be_alive?
   end
 
   def test_will_be_alive_more_than_3_neighbor
-    cell.living_neighbors = 4
+    cell.neighbors = [Cell.new(true), Cell.new(true), Cell.new(true), Cell.new(true)]
     assert !cell.will_be_alive?
+  end
+
+  def test_cell_initializes_neighbors
+    assert_equal [], cell.neighbors
+  end
+
+  def test_living_neighbors
+    assert_equal 0, cell.living_neighbors
+  end
+   
+  def test_living_neighbors_2 
+    cell.neighbors = [Cell.new(true), Cell.new(false), Cell.new(true)]
+    assert_equal 2, cell.living_neighbors
   end
 end
