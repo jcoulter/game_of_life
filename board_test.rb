@@ -18,4 +18,28 @@ class BoardTest < Test::Unit::TestCase
 
   end
 
+
+  test 'board intializes cells' do
+    @board = Board.new( 2, 2 )
+    
+    assert_equal Cell, @board.space(0,0).class
+    assert_equal Cell, @board.space(0,1).class
+    assert_equal Cell, @board.space(1,0).class
+    assert_equal Cell, @board.space(1,1).class
+
+  end
+
+  test 'board boundaries' do
+    @board = Board.new( 1, 1)
+    assert_raise(Board::OutOfBoundsError) do
+      @board.space(0, 1)
+    end
+    assert_raise(Board::OutOfBoundsError) do
+      @board.space(1, 0)
+    end
+    assert_raise(Board::OutOfBoundsError) do
+      @board.space(1, 1)
+    end
+  end
+
 end
