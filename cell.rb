@@ -21,4 +21,13 @@ class Cell
         living_neighbors == 3   
        end
     end
+
+    def show
+      if alive?
+        '[A]'
+      else 
+        '[ ]'
+      end
+    end
+
 end

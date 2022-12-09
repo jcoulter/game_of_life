@@ -51,4 +51,11 @@ class CellTest < Test::Unit::TestCase
     cell.neighbors = [Cell.new(true), Cell.new(false), Cell.new(true)]
     assert_equal 2, cell.living_neighbors
   end
+
+  test 'show' do
+    assert_equal '[ ]', cell.show
+    cell.alive = true
+    assert_equal '[A]', cell.show
+  end
+
 end

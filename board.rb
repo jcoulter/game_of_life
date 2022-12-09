@@ -12,15 +12,34 @@ class Board
     @positions = [[]]
   
     width.times do |col|
-      positions[col] = []
+      @positions[col] = []
       height.times do |row|
         @positions[col][row] = Cell.new
       end
     end
-    # set up the board
+    p " @positions[x][y] = #{ @positions}"
+
   end
 
   def space(x, y)
+    raise Board::OutOfBoundsError.new if x >= @width || y >= @height
+
     @positions[x][y]
+  end
+
+  def vivify(x, y)
+    cell = space(x, y)
+    cell.alive = true
+  end
+
+  def show
+    result = ''
+    @height.times do |row|
+      @width.times do |col|
+        result += space(col, row).show
+      end
+      result += "\n"
+    end
+    result
   end
 end
