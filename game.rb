@@ -17,6 +17,7 @@ class Game
     # Set State
     while(true) do
       sleep 1
+      puts ""
       print board.show
       board.step
     end
