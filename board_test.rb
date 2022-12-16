@@ -85,7 +85,9 @@ class BoardTest < Test::Unit::TestCase
     cell_i = board.space(2,2)
 
 
-    neighbors = board.neighbors(1,1)
+    board.update_neighbors(1,1)
+    neighbors = board.space(1,1).neighbors
+    
     assert_equal 8, neighbors.count
     assert_equal [], [cell_a, cell_b, cell_c, cell_d, cell_f, cell_g, cell_h, cell_i] - neighbors
 
@@ -100,6 +102,15 @@ class BoardTest < Test::Unit::TestCase
     neighbors = board.neighbors(1,2)
     assert_equal 5, neighbors.count
     assert_equal [], [cell_b, cell_c, cell_e, cell_h, cell_i] - neighbors
+  end
+
+  test 'step' do
+    # iterate through positions
+    #   find neighbors
+    #   set neighbors on cell at that position
+    # ask cell.will_be_alive?
+    
+
   end
 
 

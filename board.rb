@@ -53,6 +53,19 @@ class Board
     results
   end
 
+  def step
+    new_positions = []
+    width.times do |col|
+      new_positions[col] = []
+      height.times do |row|
+        cell = space(col, row)
+        cell.neighbors = neighbors(col, row)
+        new_positions[col][row] = Cell.new(cell.will_be_alive?)
+      end
+    end  
+    @positions = new_positions
+  end
+
   private
 
   def out_of_bounds(x, y)
