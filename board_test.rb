@@ -42,11 +42,25 @@ class BoardTest < Test::Unit::TestCase
     assert_raise(Board::OutOfBoundsError) do
       board.space(0, 1)
     end
+
     assert_raise(Board::OutOfBoundsError) do
       board.space(1, 0)
     end
+
     assert_raise(Board::OutOfBoundsError) do
       assert_nil board.space(1, 1)
+    end
+
+    assert_raise(Board::OutOfBoundsError) do
+      assert_nil board.space(-1, 0)
+    end
+
+    assert_raise(Board::OutOfBoundsError) do
+      assert_nil board.space(0, -1)
+    end
+
+    assert_raise(Board::OutOfBoundsError) do
+      assert_nil board.space(-1, -1)
     end
   end
 
@@ -56,5 +70,37 @@ class BoardTest < Test::Unit::TestCase
     board.vivify(0,0)
     assert_equal "[A][ ]\n[ ][ ]\n", board.show
   end
+
+  test 'neighbors' do
+
+    board = Board.new( 3, 3 )
+    cell_a = board.space(0,0)
+    cell_b = board.space(0,1)
+    cell_c = board.space(0,2)
+    cell_d = board.space(1,0)
+    cell_e = board.space(1,1)
+    cell_f = board.space(1,2)
+    cell_g = board.space(2,0)
+    cell_h = board.space(2,1)
+    cell_i = board.space(2,2)
+
+
+    neighbors = board.neighbors(1,1)
+    assert_equal 8, neighbors.count
+    assert_equal [], [cell_a, cell_b, cell_c, cell_d, cell_f, cell_g, cell_h, cell_i] - neighbors
+
+    neighbors = board.neighbors(0,0)
+    assert_equal 3, neighbors.count
+    assert_equal [], [cell_b, cell_d, cell_e] - neighbors
+
+    neighbors = board.neighbors(2,2)
+    assert_equal 3, neighbors.count
+    assert_equal [], [cell_e, cell_f, cell_h] - neighbors
+
+    neighbors = board.neighbors(1,2)
+    assert_equal 5, neighbors.count
+    assert_equal [], [cell_b, cell_c, cell_e, cell_h, cell_i] - neighbors
+  end
+
 
 end
